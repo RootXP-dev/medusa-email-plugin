@@ -6,7 +6,32 @@ Send emails on certain actions in medusa store
 
 All email templates are stored under `data/emails` directory. This directory can be copy-pasted inside your medusa backend root directory.
 
-### Testing locally
+## Installation
+
+Run the following command
+
+```bash
+npm install --save @rootxpdev/medusa-email-plugin
+```
+or
+
+```bash
+yarn add @rootxpdev/medusa-email-plugin
+```
+
+Add the following values to your `medusa-config.js` file
+
+```javascript
+const plugins = [
+  ...
+  {
+    resolve: "@rootxpdev/medusa-email-plugin",
+    options: {}
+  }
+  ...
+```
+
+## Testing locally
 
 Run the following command to register this module locally
 
@@ -21,9 +46,11 @@ yarn link "@rootxpdev/medusa-email-plugin"
 
 #### Test emails
 
+Launch your medusajs backend and call the following endpoint
+
 ```bash
 curl --request POST \
-  --url http://localhost:9001/email_test \
+  --url http://localhost:9000/email_test \
   --header 'Content-Type: application/json' \
   --data '{
 	"event": "testing",
