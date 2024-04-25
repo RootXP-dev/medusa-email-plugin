@@ -31,7 +31,7 @@
    "scripts": {
       "prepare": "cross-env NODE_ENV=production yarn run build",
       "test": "jest --passWithNoTests src",
-      "build": "shx rm -rf ./dist && tsc && medusa bundle",
+      "build": "shx rm -rf ./dist && tsc",
       "watch": "tsc --watch"
    },
    "keywords": [
