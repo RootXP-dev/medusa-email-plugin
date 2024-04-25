@@ -1,6 +1,5 @@
 import { json, Router } from "express"
 import { z } from "zod"
-import { MedusaError } from "@medusajs/utils"
 import EmailsService from "../services/emails";
 
 const router = Router()
