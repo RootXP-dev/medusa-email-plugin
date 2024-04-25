@@ -12,6 +12,7 @@
    "license": "GPL-3.0-or-later",
    "dependencies": {
       "@medusajs/medusa": "^1.20.4",
+      "@rootxpdev/medusa-email-plugin": "^0.3.5",
       "email-templates": "^11.1.1",
       "nodemailer": "^6.9.13",
       "pug": "^3.0.2",
