@@ -58,18 +58,34 @@ class EmailsService extends AbstractNotificationService {
                 relations: [
                     "refunds",
                     "items",
+                    "customer",
+                    "billing_address",
+                    "shipping_address",
+                    "discounts",
+                    "discounts.rule",
+                    "shipping_methods",
+                    "shipping_methods.shipping_option",
+                    "payments",
+                    "fulfillments",
+                    "returns",
+                    "gift_cards",
+                    "gift_card_transactions",
                 ]
             });
             this.logger.info(`Order: ${JSON.stringify(order)}`);
 
+            let totalValue = (order.items.reduce((value, item) => {
+                return value + item.unit_price * item.quantity;
+            }, 0))
+            for (const option of order.shipping_methods) {
+                totalValue += option.shipping_option.amount;
+            }
             await this.sendEmail(order.email, 'Order received', event, {
                 event,
                 order,
                 cart: await this.cartService.retrieve(order.cart_id || ''),
                 id: data.id,
-                total_value: (order.items.reduce((value, item) => {
-                    return value + item.unit_price * item.quantity;
-                }, 0) / 100).toFixed(2),
+                total_value: (totalValue / 100).toFixed(2),
             })
 
             return {

@@ -12,6 +12,12 @@ block description
                     img(src=item.thumbnail)
                 td
                     p #{item.unit_price / 100} #{order.currency_code === 'usd' ? '$' : order.currency_code} x#{item.quantity}
+        for item in order.shipping_methods
+            tr
+                td(colspan="2")
+                    p #{item.shipping_option.name}
+                td
+                    p #{item.shipping_option.amount / 100} #{order.currency_code === 'usd' ? '$' : order.currency_code}
         tr
             td(colspan="2")
                 p(class="align-right bold") Total
