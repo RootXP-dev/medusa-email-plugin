@@ -6,23 +6,35 @@ import {
 import nodemailer from "nodemailer";
 import EmailTemplates from "email-templates";
 
+interface EmailConfig {
+    templateDir: string;
+    fromAddress: string;
+    smtpHost: string;
+    smtpPort: string;
+    smtpUser: string;
+    smtpPassword: string;
+}
+
 class EmailsService extends AbstractNotificationService {
     static identifier = 'emails';
     static is_installed = true;
 
     protected orderService_: OrderService;
     protected logger_: Logger;
-    protected templateDir_: string;
+    protected emailConfig: EmailConfig;
 
-    constructor(container: any, _options: any) {
+    constructor(container: any, _options: EmailConfig) {
         super(container);
 
         this.logger_ = container.logger;
         this.logger_.info("✔ Email service initialized");
 
         this.orderService_ = container.orderService;
-        this.templateDir_ = _options.templateDir || "node_modules/@rootxpdev/medusa-email-plugin/data/emails"
-        this.logger_.info(`Email templates loaded from ${this.templateDir_}`);
+        this.emailConfig = _options;
+        if (!this.emailConfig.templateDir) {
+            this.emailConfig.templateDir = "node_modules/@rootxpdev/medusa-email-plugin/data/emails";
+        }
+        this.logger_.info(`Email templates loaded from ${this.emailConfig.templateDir}`);
     }
 
     async sendNotification(
@@ -88,22 +100,21 @@ class EmailsService extends AbstractNotificationService {
 
     async sendEmail(toAddress: string, subject: string, templateName: string, data: any) {
         const transport = nodemailer.createTransport({
-            host: "sandbox.smtp.mailtrap.io",
-            port: 2525,
+            host: this.emailConfig.smtpHost,
+            port: parseInt(this.emailConfig.smtpPort),
             auth: {
-                user: "2ff4e7fa6ad11d",
-                pass: "eb0281052bde8f"
+                user: this.emailConfig.smtpUser,
+                pass: this.emailConfig.smtpPassword,
             }
         });
         this.logger_.info(`Sending email to '${toAddress}' using template '${templateName}'`);
         const email = new EmailTemplates({
             message: {
-                from: 'noreply@theboringapps.com'
+                from: this.emailConfig.fromAddress,
             },
-            // uncomment below to send emails in development/test env:
             transport: transport,
             views: {
-                root: this.templateDir_,
+                root: this.emailConfig.templateDir,
                 options: {
                     extensions: 'pug',
                 },

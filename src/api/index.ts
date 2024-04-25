@@ -13,7 +13,6 @@ export default (rootDirectory: string): Router | Router[] => {
       // @ts-ignore
       const { success, error, data } = schema.safeParse(req.body)
       if (!success) {
-         // throw new MedusaError(MedusaError.Types.INVALID_DATA, error)
          res.status(422)
          return res.json(error);
       }

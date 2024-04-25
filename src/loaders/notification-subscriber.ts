@@ -10,7 +10,6 @@ export default async (
         NotificationService
     >("notificationService")
 
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     // TODO: register all notification events
     const emailEvents: string[] = [
         OrderService.Events.PLACED,
@@ -28,9 +27,4 @@ export default async (
             "emails"
         )
     }
-    setTimeout(() => {
-        notificationService.send('testing', {
-            resource_id: new Date().getTime() + 'a',
-        }, 'emails');
-    }, 3000);
 }
