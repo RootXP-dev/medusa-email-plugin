@@ -10,6 +10,7 @@ export default async (
         NotificationService
     >("notificationService")
 
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     // TODO: register all notification events
     const emailEvents: string[] = [
         OrderService.Events.PLACED,
@@ -19,6 +20,7 @@ export default async (
         OrderService.Events.FULFILLMENT_CREATED,
         OrderService.Events.SHIPMENT_CREATED,
         OrderService.Events.REFUND_CREATED,
+        'testing',
     ];
     for (const event of emailEvents) {
         notificationService.subscribe(
@@ -26,4 +28,7 @@ export default async (
             "emails"
         )
     }
+    setTimeout(() => {
+        notificationService.send('testing', {}, 'emails');
+    }, 5000);
 }
