@@ -12,14 +12,17 @@ class EmailsService extends AbstractNotificationService {
 
     protected orderService_: OrderService;
     protected logger_: Logger;
+    protected templateDir_: string;
 
     constructor(container: any, _options: any) {
         super(container);
 
         this.logger_ = container.logger;
-        this.logger_.info("EMAIL SENDER v1");
+        this.logger_.info("✔ Email service initialized");
 
         this.orderService_ = container.orderService;
+        this.templateDir_ = _options.templateDir || "node_modules/@rootxpdev/medusa-email-plugin/data/emails"
+        this.logger_.info(`Email templates loaded from ${this.templateDir_}`);
     }
 
     async sendNotification(
@@ -31,7 +34,7 @@ class EmailsService extends AbstractNotificationService {
         status: string;
         data: Record<string, unknown>;
     }> {
-        this.logger_.info("sendNotification");
+        this.logger_.info(`Sending notification '${event}' via email service`);
         // if (event === "order.placed") {
         //     // retrieve order
         //     const order = await this.orderService_.retrieve(data.id? || "");
@@ -92,7 +95,7 @@ class EmailsService extends AbstractNotificationService {
                 pass: "eb0281052bde8f"
             }
         });
-        this.logger_.info(`Sending email to ${toAddress}`);
+        this.logger_.info(`Sending email to '${toAddress}' using template '${templateName}'`);
         const email = new EmailTemplates({
             message: {
                 from: 'noreply@theboringapps.com'
@@ -100,7 +103,7 @@ class EmailsService extends AbstractNotificationService {
             // uncomment below to send emails in development/test env:
             transport: transport,
             views: {
-                root: 'data/emails',
+                root: this.templateDir_,
                 options: {
                     extensions: 'pug',
                 },

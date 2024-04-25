@@ -29,6 +29,8 @@ export default async (
         )
     }
     setTimeout(() => {
-        notificationService.send('testing', {}, 'emails');
-    }, 5000);
+        notificationService.send('testing', {
+            resource_id: new Date().getTime() + 'a',
+        }, 'emails');
+    }, 3000);
 }

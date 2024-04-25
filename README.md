@@ -18,3 +18,17 @@ Run this command inside your medusa backend folder to use it
 ```bash
 yarn link "@rootxpdev/medusa-email-plugin"
 ```
+
+#### Test emails
+
+```bash
+curl --request POST \
+  --url http://localhost:9001/email_test \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"event": "testing",
+	"payload": {
+		"foo": "bar"
+	}
+}'
+```
