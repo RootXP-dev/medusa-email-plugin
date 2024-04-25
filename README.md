@@ -31,7 +31,7 @@ const plugins = [
         templateDir: "node_modules/@rootxpdev/medusa-email-plugin/data/emails",
         fromAddress: "noreply@mymedusastore.com",
         smtpHost: "sandbox.smtp.mailtrap.io",
-        smtpPort: "2525",
+        smtpPort: 2525,
         smtpUser: "xxx",
         smtpPassword: "xxx",
     }

@@ -10,7 +10,7 @@ interface EmailConfig {
     templateDir: string;
     fromAddress: string;
     smtpHost: string;
-    smtpPort: string;
+    smtpPort: number;
     smtpUser: string;
     smtpPassword: string;
 }
@@ -101,7 +101,7 @@ class EmailsService extends AbstractNotificationService {
     async sendEmail(toAddress: string, subject: string, templateName: string, data: any) {
         const transport = nodemailer.createTransport({
             host: this.emailConfig.smtpHost,
-            port: parseInt(this.emailConfig.smtpPort),
+            port: this.emailConfig.smtpPort,
             auth: {
                 user: this.emailConfig.smtpUser,
                 pass: this.emailConfig.smtpPassword,
