@@ -68,7 +68,7 @@ class EmailsService extends AbstractNotificationService {
                 cart: await this.cartService.retrieve(order.cart_id || ''),
                 id: data.id,
                 total_value: (order.items.reduce((value, item) => {
-                    return value + item.unit_price;
+                    return value + item.unit_price * item.quantity;
                 }, 0) / 100).toFixed(2),
             })
 

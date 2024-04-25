@@ -11,7 +11,7 @@ block description
                 td
                     img(src=item.thumbnail)
                 td
-                    p #{item.unit_price / 100} #{order.currency_code === 'usd' ? '$' : order.currency_code}
+                    p #{item.unit_price / 100} #{order.currency_code === 'usd' ? '$' : order.currency_code} x#{item.quantity}
         tr
             td(colspan="2")
                 p(class="align-right bold") Total

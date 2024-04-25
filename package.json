@@ -1,6 +1,6 @@
 {
    "name": "@rootxpdev/medusa-email-plugin",
-   "version": "0.4.0",
+   "version": "0.4.1",
    "description": "Send emails when certain actions happens in medusa store",
    "main": "index.js",
    "repository": {
