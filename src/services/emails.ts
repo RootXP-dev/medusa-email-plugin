@@ -39,34 +39,31 @@ class EmailsService extends AbstractNotificationService {
 
     async sendNotification(
         event: string,
-        data: unknown,
+        data: any,
         attachmentGenerator: unknown
     ): Promise<{
         to: string;
         status: string;
-        data: Record<string, unknown>;
+        data: Record<string, any>;
     }> {
         this.logger_.info(`Sending notification '${event}' via email service`);
-        // if (event === "order.placed") {
-        //     // retrieve order
-        //     const order = await this.orderService_.retrieve(data.id? || "");
-        //     // TODO send email
-        //
-        //     this.logger_.info("Notification sent");
-        //
-        //     return {
-        //         to: order.email,
-        //         status: "done",
-        //         data: {
-        //             // any data necessary to send the email
-        //             // for example:
-        //             subject: "You placed a new order!",
-        //             items: order.items,
-        //         },
-        //     };
-        // }
+        if (event === "order.placed") {
+            // retrieve order
+            // @ts-ignore
+            const order = await this.orderService_.retrieve(data.id? || '');
 
-        await this.sendEmail('arnis@test.com', 'Testing', 'sample', {
+            await this.sendEmail(order.email, 'Order received', event, {
+                orderItems: order.items,
+            })
+
+            return {
+                to: 'test@test.com',
+                data: {},
+                status: "sent",
+            };
+        }
+
+        await this.sendEmail('test@test.com', 'Testing', event, {
             event,
             data,
         })

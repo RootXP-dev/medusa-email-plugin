@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        title #{ title }
+        style.
+              body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+              }
+              .container {
+                padding-top: 40px;
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #ffffff;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+              }
+              h1 {
+                color: #333333;
+              }
+              p {
+                color: #555555;
+              }
+              .button {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #3498db;
+                color: #ffffff;
+                text-decoration: none;
+                border-radius: 5px;
+              }
+              .center {
+                margin: 0 auto;
+                padding: 0 20px;
+                text-align: center;
+              }
+              .footer {
+                margin-top: 40px;
+                padding: 20px;
+                text-align: center;
+                background-color: #afafaf;
+              }
+              .title {
+                font-weight: bold;
+                font-size: 20px;
+              }
+              .description {
+                font-size: 16px;
+              }
+    body
+        <div class="container">
+            div(class="center title")
+                block title
+            div(class="center description")
+                block description
+            div(class="center")
+                block actions
+            div(class="footer")
+                p Your Medusa shop
+        </div>

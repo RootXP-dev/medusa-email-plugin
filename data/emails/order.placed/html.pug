@@ -1,0 +1,10 @@
+extends ./../layouts/main.pug
+block title
+    p Your order ##{event} has been received
+block description
+    p Rest of information about #{ event }
+    p #{JSON.stringify(data)}
+    for item in orderItems
+        li= #{JSON.stringify(item)}
+block actions
+    a(href=website, target="_blank" class="button") Visit our website
