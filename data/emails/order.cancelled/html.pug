@@ -1,8 +1,8 @@
 extends ./../layouts/main.pug
 block title
-    p Your order has been received!
+    p(class="warn") Your order has been cancelled!
 block description
-    p Here are the items you ordered
+    p(class="warn") Here are the items that were in your order
     table(class="list" border="1")
         for item in order.items
             tr

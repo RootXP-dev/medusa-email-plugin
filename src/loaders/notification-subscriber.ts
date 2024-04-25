@@ -15,8 +15,6 @@ export default async (
         OrderService.Events.PLACED,
         OrderService.Events.CANCELED,
         OrderService.Events.COMPLETED,
-        OrderService.Events.PAYMENT_CAPTURED,
-        OrderService.Events.FULFILLMENT_CREATED,
         OrderService.Events.SHIPMENT_CREATED,
         OrderService.Events.REFUND_CREATED,
         'testing',

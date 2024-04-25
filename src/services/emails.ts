@@ -1,5 +1,5 @@
 import {
-    AbstractNotificationService,
+    AbstractNotificationService, CartService, LineItemService,
     Logger,
     OrderService,
 } from "@medusajs/medusa";
@@ -19,22 +19,26 @@ class EmailsService extends AbstractNotificationService {
     static identifier = 'emails';
     static is_installed = true;
 
-    protected orderService_: OrderService;
-    protected logger_: Logger;
+    protected orderService: OrderService;
+    protected cartService: CartService;
+    protected lineItemService: LineItemService;
+    protected logger: Logger;
     protected emailConfig: EmailConfig;
 
     constructor(container: any, _options: EmailConfig) {
         super(container);
 
-        this.logger_ = container.logger;
-        this.logger_.info("✔ Email service initialized");
+        this.logger = container.logger;
+        this.logger.info("✔ Email service initialized");
 
-        this.orderService_ = container.orderService;
+        this.orderService = container.orderService;
+        this.cartService = container.cartService;
+        this.lineItemService = container.lineItemService;
         this.emailConfig = _options;
         if (!this.emailConfig.templateDir) {
             this.emailConfig.templateDir = "node_modules/@rootxpdev/medusa-email-plugin/data/emails";
         }
-        this.logger_.info(`Email templates loaded from ${this.emailConfig.templateDir}`);
+        this.logger.info(`Email templates loaded from ${this.emailConfig.templateDir}`);
     }
 
     async sendNotification(
@@ -46,19 +50,31 @@ class EmailsService extends AbstractNotificationService {
         status: string;
         data: Record<string, any>;
     }> {
-        this.logger_.info(`Sending notification '${event}' via email service`);
-        if (event === "order.placed") {
+        this.logger.info(`Sending notification '${event}' via email service`);
+        if (event.includes("order.")) {
             // retrieve order
             // @ts-ignore
-            const order = await this.orderService_.retrieve(data.id || '');
+            const order = await this.orderService.retrieve(data.id || '', {
+                relations: [
+                    "refunds",
+                    "items",
+                ]
+            });
+            this.logger.info(`Order: ${JSON.stringify(order)}`);
 
             await this.sendEmail(order.email, 'Order received', event, {
-                orderItems: order.items,
+                event,
+                order,
+                cart: await this.cartService.retrieve(order.cart_id || ''),
+                id: data.id,
+                total_value: (order.items.reduce((value, item) => {
+                    return value + item.unit_price;
+                }, 0) / 100).toFixed(2),
             })
 
             return {
-                to: 'test@test.com',
-                data: {},
+                to: order.email,
+                data: data,
                 status: "sent",
             };
         }
@@ -96,6 +112,8 @@ class EmailsService extends AbstractNotificationService {
     }
 
     async sendEmail(toAddress: string, subject: string, templateName: string, data: any) {
+        // console.log('data', data)
+        this.logger.info(JSON.stringify(data));
         const transport = nodemailer.createTransport({
             host: this.emailConfig.smtpHost,
             port: this.emailConfig.smtpPort,
@@ -104,7 +122,7 @@ class EmailsService extends AbstractNotificationService {
                 pass: this.emailConfig.smtpPassword,
             }
         });
-        this.logger_.info(`Sending email to '${toAddress}' using template '${templateName}'`);
+        this.logger.info(`Sending email to '${toAddress}' using template '${templateName}'`);
         const email = new EmailTemplates({
             message: {
                 from: this.emailConfig.fromAddress,
@@ -123,7 +141,9 @@ class EmailsService extends AbstractNotificationService {
             message: {
                 to: toAddress,
             },
-            locals: data,
+            locals: {
+                ...data,
+            },
         });
     }
 }

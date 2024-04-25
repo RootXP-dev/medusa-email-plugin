@@ -1,0 +1,9 @@
+extends ./../layouts/main.pug
+block title
+    p(class="success") Your order refund is on your way!
+block description
+    p We're sending back your <span class="bold">#{total_value} #{order.currency_code === 'usd' ? '$' : order.currency_code}</span>
+    p(class="small") Order ID: #{order.id}
+//-
+//- block actions
+//-     a(href=link, target="_blank" class="button") Visit our website
