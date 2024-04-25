@@ -50,7 +50,7 @@ class EmailsService extends AbstractNotificationService {
         if (event === "order.placed") {
             // retrieve order
             // @ts-ignore
-            const order = await this.orderService_.retrieve(data.id? || '');
+            const order = await this.orderService_.retrieve(data.id || '');
 
             await this.sendEmail(order.email, 'Order received', event, {
                 orderItems: order.items,
