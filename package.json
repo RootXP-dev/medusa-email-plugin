@@ -1,0 +1,42 @@
+{
+   "name": "medusa-email-plugin",
+   "version": "0.1.0",
+   "description": "Send emails when certain actions happens in medusa store",
+   "main": "index.js",
+   "repository": {
+      "type": "git",
+      "url": "https://github.com/RootXP-dev/medusa-email-plugin"
+   },
+   "homepage:": "https://github.com/RootXP-dev/medusa-email-plugin",
+   "author": "Root XP",
+   "license": "GPL-3.0-or-later",
+   "dependencies": {
+      "@medusajs/medusa": "^1.20.4",
+      "email-templates": "^11.1.1",
+      "nodemailer": "^6.9.13",
+      "pug": "^3.0.2"
+   },
+   "devDependencies": {
+      "@medusajs/admin-ui": "^2.1.4",
+      "@medusajs/medusa-cli": "^1.3.22",
+      "@types/nodemailer": "^6.4.14",
+      "awilix": "^8.0.1",
+      "cors": "^2.8.5",
+      "cross-env": "^7.0.3",
+      "express": "^4.17.2",
+      "shx": "^0.3.4",
+      "typescript": "^5.2.2"
+   },
+   "scripts": {
+      "prepare": "cross-env NODE_ENV=production yarn run build",
+      "test": "jest --passWithNoTests src",
+      "build": "shx rm -rf ./dist && tsc && medusa bundle",
+      "watch": "tsc --watch"
+   },
+   "keywords": [
+      "medusa-plugin",
+      "medusa-plugin-notification",
+      "email",
+      "transactional email"
+   ]
+}
