@@ -5,7 +5,7 @@ import EmailsService from "../services/emails";
 const router = Router()
 
 export default (rootDirectory: string): Router | Router[] => {
-   router.post("/email_test", json(), async (req, res) => {
+   router.post("/email_test", json(), async (req: any, res) => {
       const schema = z.object({
          event: z.string().min(1),
          payload: z.any(),

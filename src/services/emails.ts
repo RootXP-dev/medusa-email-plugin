@@ -2,7 +2,7 @@ import {
     AbstractNotificationService, CartService, LineItemService,
     Logger,
     OrderService,
-} from "@medusajs/medusa";
+} from "medusa-interfaces";
 import nodemailer from "nodemailer";
 import EmailTemplates from "email-templates";
 

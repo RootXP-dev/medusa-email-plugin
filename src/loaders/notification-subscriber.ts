@@ -1,23 +1,13 @@
-import {
-    MedusaContainer,
-    NotificationService, OrderService,
-} from "@medusajs/medusa"
-
-export default async (
-    container: MedusaContainer
-): Promise<void> => {
-    const notificationService = container.resolve<
-        NotificationService
-    >("notificationService")
+export default async (container: any): Promise<void> => {
+    const notificationService = container.resolve("notificationService")
 
     // TODO: register all notification events
     const emailEvents: string[] = [
-        OrderService.Events.PLACED,
-        OrderService.Events.CANCELED,
-        OrderService.Events.COMPLETED,
-        OrderService.Events.SHIPMENT_CREATED,
-        OrderService.Events.REFUND_CREATED,
-        'testing',
+        'order.placed',
+        'order.cancelled',
+        'order.completed',
+        'order.shipment_created',
+        'order.refund_created',
     ];
     for (const event of emailEvents) {
         notificationService.subscribe(
