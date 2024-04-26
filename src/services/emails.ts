@@ -1,5 +1,5 @@
 import {
-    BaseService,
+    BaseNotificationService,
     Logger,
     OrderService,
 } from "medusa-interfaces";
@@ -15,7 +15,7 @@ interface EmailConfig {
     smtpPassword: string;
 }
 
-class EmailsService extends BaseService {
+class EmailsService extends BaseNotificationService {
     static identifier = 'emails';
     static is_installed = true;
 
