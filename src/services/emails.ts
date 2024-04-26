@@ -1,5 +1,5 @@
 import {
-    AbstractNotificationService, CartService, LineItemService,
+    BaseService,
     Logger,
     OrderService,
 } from "medusa-interfaces";
@@ -15,13 +15,13 @@ interface EmailConfig {
     smtpPassword: string;
 }
 
-class EmailsService extends AbstractNotificationService {
+class EmailsService extends BaseService {
     static identifier = 'emails';
     static is_installed = true;
 
     protected orderService: OrderService;
-    protected cartService: CartService;
-    protected lineItemService: LineItemService;
+    protected cartService: any;
+    protected lineItemService: any;
     protected logger: Logger;
     protected emailConfig: EmailConfig;
 
