@@ -1,6 +1,6 @@
 {
    "name": "@rootxpdev/medusa-email-plugin",
-   "version": "0.4.4",
+   "version": "0.4.5",
    "description": "Send emails when certain actions happens in medusa store",
    "main": "index.js",
    "repository": {
@@ -11,7 +11,6 @@
    "author": "Root XP",
    "license": "GPL-3.0-or-later",
    "dependencies": {
-      "@medusajs/medusa": "^1.20.4",
       "email-templates": "^11.1.1",
       "nodemailer": "^6.9.13",
       "pug": "^3.0.2",
