@@ -39,13 +39,6 @@ const plugins = [
 ];
 ```
 
-host: "sandbox.smtp.mailtrap.io",
-port: 2525,
-auth: {
-user: "2ff4e7fa6ad11d",
-pass: "eb0281052bde8f"
-}
-
 ## Testing locally
 
 Run the following command to register this module locally
