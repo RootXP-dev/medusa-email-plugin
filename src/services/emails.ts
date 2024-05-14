@@ -67,7 +67,7 @@ class EmailsService extends NotificationService {
                     "shipping_methods.shipping_option",
                     "payments",
                     "fulfillments",
-                    "fulfillments.tracking_link",
+                    "fulfillments.tracking_links",
                     "returns",
                     "gift_cards",
                     "gift_card_transactions",
