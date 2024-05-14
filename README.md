@@ -58,7 +58,7 @@ Launch your medusajs backend and call the following endpoint
 
 ```bash
 curl --request POST \
-  --url http://localhost:9000/email_test \
+  --url http://localhost:9000/admin/email_test \
   --header 'Content-Type: application/json' \
   --data '{
 	"event": "testing",

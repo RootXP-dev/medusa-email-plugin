@@ -1,6 +1,6 @@
 import { json, Router } from "express"
 import { z } from "zod"
-import EmailsService from "../services/emails";
+import EmailsService from "../../services/emails";
 
 const router = Router()
 

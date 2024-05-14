@@ -80,7 +80,7 @@ class EmailsService extends NotificationService {
             for (const option of order.shipping_methods) {
                 totalValue += option.shipping_option.amount;
             }
-            await this.sendEmail(order.email, 'Order received', event, {
+            await this.sendEmail(order.email, event, {
                 event,
                 order,
                 cart: await this.cartService.retrieve(order.cart_id || ''),
@@ -95,13 +95,8 @@ class EmailsService extends NotificationService {
             };
         }
 
-        await this.sendEmail('test@test.com', 'Testing', event, {
-            event,
-            data,
-        })
-
         return {
-            to: 'arnis@arnis.lv',
+            to: null,
             data: {},
             status: "sent",
         };
@@ -116,7 +111,7 @@ class EmailsService extends NotificationService {
         status: string;
         data: Record<string, unknown>;
     }> {
-        await this.sendEmail('arnis@test.com', 'Testing', 'sample', {
+        await this.sendEmail('arnis@test.com', 'sample', {
             event: notification,
         })
 
@@ -127,7 +122,7 @@ class EmailsService extends NotificationService {
         };
     }
 
-    async sendEmail(toAddress: string, subject: string, templateName: string, data: any) {
+    async sendEmail(toAddress: string, templateName: string, data: any) {
         // console.log('data', data)
         this.logger.info(JSON.stringify(data));
         const transport = nodemailer.createTransport({
